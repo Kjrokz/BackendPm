@@ -9,7 +9,7 @@ app.use(express.urlencoded({ extended: false }));
 
 const PORT: string | number = process.env.PORT || 4000;
 
-app.post("/generarPdf", async (req: Request, res: Response) => {
+app.get("/generarPdf", async (req: Request, res: Response) => {
   /*  console.log(req.body); */
 
   const {
