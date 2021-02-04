@@ -10,7 +10,29 @@ app.use(express.urlencoded({ extended: false }));
 const PORT: string | number = process.env.PORT || 4000;
 
 app.post("/generarPdf", async (req: Request, res: Response) => {
-  console.log(req.body);
+  /*  console.log(req.body); */
+
+  const {
+    nombre,
+    cedula,
+    edad,
+    region,
+    comuna,
+    direccion,
+    fechaInicio,
+    fechaTermino,
+    destino,
+  }: {
+    nombre: string;
+    cedula: string;
+    edad: string;
+    region: string;
+    comuna: string;
+    direccion: string;
+    fechaInicio: string;
+    fechaTermino: string;
+    destino: string;
+  } = req.body;
 
   const inputPath: string = path.resolve(
     __dirname,
@@ -32,15 +54,15 @@ app.post("/generarPdf", async (req: Request, res: Response) => {
 
     const page = await pdfdoc.getPage(1);
 
-    await replacer.addString("NombreCompleto", "Eric");
-    await replacer.addString("Rut", "18411148-9");
-    await replacer.addString("Edad", "11");
-    await replacer.addString("Region", "Biobío");
-    await replacer.addString("Comuna", "Arauco");
-    await replacer.addString("Direccion", "Portal del Valle");
-    await replacer.addString("InicioHora", "11:11");
-    await replacer.addString("TerminoHora", "11:09");
-    await replacer.addString("Destino", "Supermercado");
+    await replacer.addString("NombreCompleto", nombre);
+    await replacer.addString("Rut", cedula);
+    await replacer.addString("Edad", edad);
+    await replacer.addString("Region", region);
+    await replacer.addString("Comuna", comuna);
+    await replacer.addString("Direccion", direccion);
+    await replacer.addString("InicioHora", fechaInicio);
+    await replacer.addString("TerminoHora", fechaTermino);
+    await replacer.addString("Destino", destino);
     await replacer.addString("FechaEmision", "12-12-2020");
     await replacer.addString("HoraEmision", "12:12:12");
 
