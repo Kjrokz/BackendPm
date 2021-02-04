@@ -80,7 +80,7 @@ app.post("/generarPdf", async (req: Request, res: Response) => {
         return res.status(500).json({ msg: "Error al guardar pdf" });
       } else {
         res.setHeader("ContentType", "aplication/pdf");
-        return res.end(data);
+        return res.download(outputPath);
       }
     });
   } catch (error) {
