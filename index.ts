@@ -11,12 +11,17 @@ const PORT: string | number = process.env.PORT || 4000;
 
 app.post("/generarPdf", async (req: Request, res: Response) => {
   console.log(req.body);
-  console.log(__dirname);
 
-  const inputPath: string = path.resolve(__dirname, "./files/permiso.pdf");
+  const inputPath: string = path.resolve(
+    __dirname,
+    __dirname.includes("dist") ? "../files/permiso.pdf" : "./files/permiso.pdf"
+  );
+
   const outputPath: string = path.resolve(
     __dirname,
-    "./files/permiso_replace.pdf"
+    __dirname.includes("dist")
+      ? "../files/permiso_replace.pdf"
+      : "./files/permiso_replace.pdf"
   );
 
   const replaceText = async () => {
