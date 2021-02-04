@@ -34,6 +34,9 @@ app.post("/generarPdf", async (req: Request, res: Response) => {
     destino: string;
   } = req.body;
 
+  console.log("req", req);
+  console.log("req.body", req.body);
+
   const inputPath: string = path.resolve(
     __dirname,
     __dirname.includes("dist") ? "../files/permiso.pdf" : "./files/permiso.pdf"
