@@ -1,5 +1,6 @@
 import { PDFNet } from "@pdftron/pdfnet-node";
 import { Request, Response } from "express";
+import moment from "moment";
 import path from "path";
 import fs from "fs";
 
@@ -52,6 +53,18 @@ export const crearPdf = async (req: Request, res: Response) => {
 
     const page = await pdfdoc.getPage(1);
 
+    const fechaHoy = moment();
+
+    const minutos = "00:15:00";
+
+    const nuevaHora = moment(fechaInicio, "HH:mm:ss");
+
+    /* console.log(nuevaHora); */
+
+    nuevaHora.subtract(moment.duration(minutos));
+
+    /* console.log(nuevaHora.format("HH:mm:ss")); */
+
     await replacer.addString("NombreCompleto", nombre);
     await replacer.addString("Rut", cedula);
     await replacer.addString("Edad", edad);
@@ -61,8 +74,8 @@ export const crearPdf = async (req: Request, res: Response) => {
     await replacer.addString("InicioHora", fechaInicio);
     await replacer.addString("TerminoHora", fechaTermino);
     await replacer.addString("Destino", destino);
-    await replacer.addString("FechaEmision", "12-12-2020");
-    await replacer.addString("HoraEmision", "12:12:12");
+    await replacer.addString("FechaEmision", fechaHoy.format("DD-MM-YYYY"));
+    await replacer.addString("HoraEmision", nuevaHora.format("HH:mm:ss"));
 
     /* await replacer.addString("InicioHora", "11"); */
     await replacer.process(page);
