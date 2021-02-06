@@ -75,7 +75,7 @@ export const crearPdf = async (req: Request, res: Response) => {
     await replacer.addString("TerminoHora", fechaTermino);
     await replacer.addString("Destino", destino);
     await replacer.addString("FechaEmision", fechaHoy.format("DD-MM-YYYY"));
-    await replacer.addString("HoraEmision", nuevaHora.format("HH:mm:ss"));
+    await replacer.addString("Hem", nuevaHora.format("HH:mm:ss"));
 
     /* await replacer.addString("InicioHora", "11"); */
     await replacer.process(page);
