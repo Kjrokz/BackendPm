@@ -3,6 +3,7 @@ import { Request, Response } from "express";
 import moment from "moment";
 import path from "path";
 import fs from "fs";
+import { isTimeBetween } from "../utils/utils";
 
 export const crearPdf = async (req: Request, res: Response) => {
   /*  console.log(req.body); */
@@ -53,6 +54,21 @@ export const crearPdf = async (req: Request, res: Response) => {
 
     const page = await pdfdoc.getPage(1);
 
+    /*  console.log(fechaInicio);
+    console.log(fechaTermino); */
+
+    if (isTimeBetween("00:00:00", "05:00:00", fechaInicio)) {
+      throw new Error(
+        "No es posible generar permisos en toque de queda. Horario 05:00hrs hasta las 22:00hrs"
+      );
+    }
+
+    if (!isTimeBetween(fechaInicio, "22:00:00", fechaTermino)) {
+      throw new Error(
+        "No es posible generar permisos en toque de queda. Horario 05:00hrs hasta las 22:00hrs"
+      );
+    }
+
     const fechaHoy = moment();
 
     const minutos = "00:15:00";
@@ -96,6 +112,8 @@ export const crearPdf = async (req: Request, res: Response) => {
     });
   } catch (error) {
     console.log(error);
-    return res.status(500).json({ msg: "Error al convertir en pdf" });
+    return res
+      .status(500)
+      .json({ msg: "Error al convertir en pdf", error: error.message });
   }
 };
