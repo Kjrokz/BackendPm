@@ -3,7 +3,7 @@ import { Request, Response } from "express";
 import moment from "moment";
 import path from "path";
 import fs from "fs";
-import { isTimeBetween } from "../utils/utils";
+/* import { isTimeBetween } from "../utils/utils"; */
 
 export const crearPdf = async (req: Request, res: Response) => {
   /*  console.log(req.body); */
@@ -57,7 +57,7 @@ export const crearPdf = async (req: Request, res: Response) => {
     /*  console.log(fechaInicio);
     console.log(fechaTermino); */
 
-    if (isTimeBetween("00:00:00", "05:00:00", fechaInicio)) {
+    /*  if (isTimeBetween("00:00:00", "05:00:00", fechaInicio)) {
       throw new Error(
         "No es posible generar permisos en toque de queda. Horario 05:00hrs hasta las 22:00hrs"
       );
@@ -67,7 +67,7 @@ export const crearPdf = async (req: Request, res: Response) => {
       throw new Error(
         "No es posible generar permisos en toque de queda. Horario 05:00hrs hasta las 22:00hrs"
       );
-    }
+    } */
 
     const fechaHoy = moment();
 
